@@ -42,9 +42,25 @@ Once a development branch has been merged into its parent branch
 
 A new branch should be create from the fresh commit on _master_.
 There are several ways to do this,
-the most conceptually clean is to
+the most conceptually clean way is to
 delete the old branch and start a new one.
 You can keep the same name if you like.
+
+    git fetch --prune --all
+    git checkout master
+    git rebase
+    git branch -d me/my-fave-branch
+    git checkout -b me/my-fave-branch
+
+However, please consider if
+the new branch name needs to be the same as the old branch name.
+Ideally a branch should have a name that reflects a _purpose_.
+A branch called `drj-changes` reflects what is in the branch,
+not what the changes in this branch are intended to do.
+
+However, don't stress about branch names too much, because
+most of them should be short lived
+(less than one Agile cycle, say, less than 14 days).
 
 If you think deleting a branch and creating a new one is a bit tedious,
 and you want to re-use the branch name
@@ -60,8 +76,6 @@ If you've already caught up `master` to `origin/master` then you can go
     git rebase master
 
 
-## Some notes
-
 ### After merging on GitHub, catchup your master
 
 If you merge on GitHub (via a Pull Request), then
@@ -75,5 +89,35 @@ fast-forward:
     git rebase
     # You will now be on your newly caught up master branch
 
+### Why do I use `git fetch`?
 
+`git pull` which you will see elsewhere, does two things:
+- it updates your repo so it contains every commit from the remote(s);
+- when a branch has changed both locally and on the remote, it creates a merge.
+
+The first action is `git fetch`.
+The second action is `git merge`.
+
+So together the combined effect is:
+fetch a load of new commits and possibly
+create a new commit based on commits I've never seen before, and
+update my working tree to that point.
+
+Does that sound sensible?
+
+There are some git working practices that make the merge step
+never happen:
+If you only ever use github Pull Requests to change the `master`
+branch then your local `master` branch can be "fast forwarded"
+to the remote's, and this will happen.
+
+If, on other branches, only one person edits on a branch,
+then the remote's branch won't have new commits, so again, a
+merge commit will never be created.
+Technically one person can create the effect of two people
+editing by creating a second clone and pushing that to the remote.
+Mostly this doesn't happen but you can sometimes accidentally do
+it to yourself if you leave changes unpushed on a laptop and
+then go home and make more changes on your desktop, or something
+similar.
 
