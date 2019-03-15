@@ -62,6 +62,9 @@ However, don't stress about branch names too much, because
 most of them should be short lived
 (less than one Agile cycle, say, less than 14 days).
 
+
+### fast-forwarding a branch instead of deleting it
+
 If you think deleting a branch and creating a new one is a bit tedious,
 and you want to re-use the branch name
 (which I suppose you are free to do so),
@@ -99,7 +102,7 @@ The first action is `git fetch`.
 The second action is `git merge`.
 
 So together the combined effect is:
-fetch a load of new commits and possibly
+fetch a load of new commits and, possibly
 create a new commit based on commits I've never seen before, and
 update my working tree to that point.
 
@@ -121,3 +124,5 @@ it to yourself if you leave changes unpushed on a laptop and
 then go home and make more changes on your desktop, or something
 similar.
 
+That's partly why there are lots of people that recommend
+working like that.
